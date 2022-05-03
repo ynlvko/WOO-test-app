@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:woo_test_app/blocs/filter_cubit.dart';
 import 'package:woo_test_app/blocs/markets_bloc.dart';
 import 'package:woo_test_app/blocs/sort_cubit.dart';
@@ -137,12 +138,15 @@ class MarketsTableRow extends StatelessWidget {
   }
 
   String _formatPrice(double price) {
-    return "\$$price"
-        .replaceAll(
+    final numberFormat = NumberFormat.currency(
+      symbol: "\$",
+      locale: "en_US",
+      decimalDigits: 10,
+    );
+    return numberFormat.format(price).replaceAll(
           RegExp(r"\.?0+$"),
           "",
-        )
-        .trim();
+        );
   }
 
   String _formatVolume(double volume) {
